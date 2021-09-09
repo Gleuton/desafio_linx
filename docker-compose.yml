@@ -18,3 +18,15 @@ services:
       - ./api_catalogo/docker/nginx:/etc/nginx/conf.d
     depends_on:
       - api_catalogo-php
+
+  api_catalogo-db:
+    image: postgres:13.3-alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: catdev
+      POSTGRES_USER: catalogo
+      POSTGRES_DB: api_catalogo_db
+    volumes:
+      - ../catalogo-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
