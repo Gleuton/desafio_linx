@@ -1,1 +1,3 @@
 .idea/
+api_catalogo/vendor
+api_catalogo/.env

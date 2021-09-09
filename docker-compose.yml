@@ -3,8 +3,10 @@ services:
   api_catalogo-php:
     build: ./api_catalogo/docker
     volumes:
-      - ./api_catalogo/:/var/www
+      - ./api_catalogo:/var/www
       - ./api_catalogo/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+    ports:
+      - "9000:9000"
 
   api_catalogo-nginx:
     image: nginx:alpine
@@ -12,7 +14,7 @@ services:
     ports:
       - "89:80"
     volumes:
-      - ./:/var/www
+      - ./api_catalogo:/var/www
       - ./api_catalogo/docker/nginx:/etc/nginx/conf.d
     depends_on:
       - api_catalogo-php
