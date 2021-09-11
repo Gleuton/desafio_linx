@@ -9,9 +9,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Images extends Model
 {
-    use SoftDeletes;
-
     public $incrementing = false;
+    public $guarded = [];
+    public $timestamps = [];
 
     public function Product(): HasOne
     {

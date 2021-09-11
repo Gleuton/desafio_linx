@@ -10,7 +10,8 @@
   "type": "project",
   "require": {
     "php": "^7.4",
-    "laravel/lumen-framework": "^8.0"
+    "laravel/lumen-framework": "^8.0",
+    "ext-json": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",
@@ -39,6 +40,10 @@
   "scripts": {
     "post-root-package-install": [
       "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    ],
+    "import_data": [
+      "php artisan import:products",
+      "php artisan queue:listen"
     ]
   }
 }

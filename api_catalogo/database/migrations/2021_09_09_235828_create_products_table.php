@@ -33,8 +33,7 @@ class CreateProductsTable extends Migration
             $table->json('specs');
             $table->json('extraInfo');
             $table->json('customBusiness');
-            $table->foreignIdFor(Images::class);
-            $table->foreignIdFor(Installments::class);
+            $table->foreignIdFor(Installments::class)->nullable();
             $table->dateTime('created');
             $table->dateTime('clientLastUpdated');
         });
