@@ -7,16 +7,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Categories extends Model
+class Skus extends Model
 {
     use SoftDeletes;
 
     public $incrementing = false;
-
-    public function Parents(): HasMany
-    {
-        return $this->hasMany(CategoriesParents::class);
-    }
 
     public function Product():HasOne
     {

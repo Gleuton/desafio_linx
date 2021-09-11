@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Images;
+use App\Models\Installments;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -10,6 +12,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
+            $table->json('imagesSsl');
             $table->string('name');
             $table->string('apiKey');
             $table->string('description');
@@ -27,7 +30,13 @@ class CreateProductsTable extends Migration
             $table->string('unit')->nullable();
             $table->string('status');
             $table->string('ungroupedId');
-            $table->timestamps();
+            $table->json('specs');
+            $table->json('extraInfo');
+            $table->json('customBusiness');
+            $table->foreignIdFor(Images::class);
+            $table->foreignIdFor(Installments::class);
+            $table->dateTime('created');
+            $table->dateTime('clientLastUpdated');
         });
     }
 
