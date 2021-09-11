@@ -11,6 +11,8 @@ class Products extends Model
     public const CREATED_AT = 'created';
     public const UPDATED_AT = 'clientLastUpdated';
 
+    protected $keyType = 'string';
+
     protected $guarded = [];
 
     public function Categories(): HasMany

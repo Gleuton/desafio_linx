@@ -3,11 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Installments extends Model
 {
-    use SoftDeletes;
-
+    public $guarded = [];
+    public $timestamps = [];
     public $incrementing = false;
 }

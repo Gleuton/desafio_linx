@@ -13,7 +13,10 @@ class CreateImagesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('url');
-            $table->foreignIdFor(Products::class);
+            $table->string('products_id');
+            $table->foreign('products_id')
+                  ->references('id')
+                  ->on('products');
         });
     }
 

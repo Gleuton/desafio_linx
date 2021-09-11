@@ -11,7 +11,7 @@ class CreateProductsTable extends Migration
     public function up(): void
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->id();
+            $table->string('id')->primary();
             $table->json('imagesSsl');
             $table->string('name');
             $table->string('apiKey');
