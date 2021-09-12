@@ -5,6 +5,7 @@ namespace App\Facade;
 use App\Models\Categories;
 use App\Models\CategoriesParents;
 use App\Models\Images;
+use App\Models\Installments;
 use App\Models\Products;
 use App\Prepare\ProductsTrait;
 use Exception;
@@ -31,6 +32,7 @@ class ImportProductsFacade
             $this->importProducts();
             $this->importImages();
             $this->importCategory();
+            $this->importInstallments();
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -85,5 +87,14 @@ class ImportProductsFacade
             );
             $cat_parent->save();
         }
+    }
+
+    private function importInstallments(): void
+    {
+        $install = new Installments(
+            $this->products['installment']
+        );
+        $install->products_id = $this->products['id'];
+        $install->save();
     }
 }

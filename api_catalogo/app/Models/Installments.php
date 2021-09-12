@@ -6,7 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Installments extends Model
 {
-    public $guarded = [];
     public $timestamps = [];
-    public $incrementing = false;
+    protected $guarded = ['id'];
+    protected $casts = [
+        'count' => 'integer',
+        'price' => 'double'
+    ];
 }

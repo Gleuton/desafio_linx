@@ -11,6 +11,10 @@ class CreateTagsTable extends Migration
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
             $table->string('tag');
+            $table->string('products_id');
+            $table->foreign('products_id')
+                  ->references('id')
+                  ->on('products');
         });
     }
 
