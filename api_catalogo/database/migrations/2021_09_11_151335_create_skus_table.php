@@ -11,7 +11,10 @@ class CreateSkusTable extends Migration
     {
         Schema::create('skus', function (Blueprint $table) {
             $table->integer('sku')->primary();
-            $table->foreignIdFor(Products::class);
+            $table->string('products_id');
+            $table->foreign('products_id')
+                  ->references('id')
+                  ->on('products');
         });
     }
 

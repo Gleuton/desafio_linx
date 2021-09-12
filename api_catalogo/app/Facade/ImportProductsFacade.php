@@ -7,6 +7,7 @@ use App\Models\CategoriesParents;
 use App\Models\Images;
 use App\Models\Installments;
 use App\Models\Products;
+use App\Models\Skus;
 use App\Prepare\ProductsTrait;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -33,6 +34,7 @@ class ImportProductsFacade
             $this->importImages();
             $this->importCategory();
             $this->importInstallments();
+            $this->importSkus();
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -96,5 +98,19 @@ class ImportProductsFacade
         );
         $install->products_id = $this->products['id'];
         $install->save();
+    }
+
+    private function importSkus(): void
+    {
+        foreach ($this->products['skus'] as $sku) {
+            $skus = new Skus(
+                [
+                    'sku' => $sku['sku'],
+                    'products_id' => $this->products['id']
+                ]
+            );
+
+            $skus->save();
+        }
     }
 }
