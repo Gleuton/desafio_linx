@@ -30,7 +30,9 @@ trait ProductsTrait
             'extraInfo'         => $product['extraInfo'],
             'customBusiness'    => $product['customBusiness'],
             'created'           => $product['created'],
-            'clientLastUpdated' => $product['clientLastUpdated']
+            'clientLastUpdated' => $product['clientLastUpdated'],
+            'installments_id'   => $product['installments_id'],
+            'audit_info_id'   => $product['audit_info_id'],
         ];
     }
 }

@@ -2,6 +2,7 @@
 
 namespace App\Facade;
 
+use App\Models\AuditInfo;
 use App\Models\Categories;
 use App\Models\CategoriesParents;
 use App\Models\Images;
@@ -30,11 +31,16 @@ class ImportProductsFacade
     {
         DB::beginTransaction();
         try {
-            $this->importProducts();
+            $installment = $this->importInstallments();
+            $auditInfo   = $this->importAuditInfo();
+            $this->importProducts(
+                $installment->getKey(),
+                $auditInfo->getKey()
+            );
             $this->importImages();
             $this->importCategory();
-            $this->importInstallments();
             $this->importSkus();
+
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();
@@ -56,12 +62,16 @@ class ImportProductsFacade
         }
     }
 
-    private function importProducts(): void
+    private function importProducts(int $installment_id, int $audit): Products
     {
-        $product = new Products(
+        $this->products['installments_id'] = $installment_id;
+        $this->products['audit_info_id']   = $audit;
+        $product                           = new Products(
             $this->prepareProductData($this->products)
         );
         $product->save();
+
+        return $product;
     }
 
     private function importCategory(): void
@@ -91,13 +101,13 @@ class ImportProductsFacade
         }
     }
 
-    private function importInstallments(): void
+    private function importInstallments(): Installments
     {
         $install = new Installments(
             $this->products['installment']
         );
-        $install->products_id = $this->products['id'];
         $install->save();
+        return $install;
     }
 
     private function importSkus(): void
@@ -105,12 +115,33 @@ class ImportProductsFacade
         foreach ($this->products['skus'] as $sku) {
             $skus = new Skus(
                 [
-                    'sku' => $sku['sku'],
+                    'sku'         => $sku['sku'],
                     'products_id' => $this->products['id']
                 ]
             );
-
             $skus->save();
         }
+    }
+
+    private function importAuditInfo()
+    {
+        $auditInfo = $this->products['auditInfo'];
+
+        $info = AuditInfo::query()
+                         ->where(
+                             'updatedBy',
+                             $auditInfo['updatedBy']
+                         )
+                         ->where(
+                             'updatedThrough',
+                             $auditInfo['updatedThrough']
+                         )
+                         ->first();
+
+        if (empty($info)) {
+            $info = new AuditInfo($auditInfo);
+            $info->save();
+        }
+        return $info ?? [];
     }
 }

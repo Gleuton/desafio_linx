@@ -19,14 +19,27 @@ class Products extends Model
         return $this->hasMany(Categories::class);
     }
 
+    public function Skus(): HasMany
+    {
+        return $this->hasMany(Skus::class);
+    }
+
     public function Images(): HasMany
     {
         return $this->hasMany(Images::class);
     }
-
-    public function Installment(): HasOne
+    public function Tags(): HasMany
+    {
+        return $this->hasMany(Tags::class);
+    }
+    public function Installments(): HasOne
     {
         return $this->hasOne(Installments::class);
+    }
+
+    public function AuditInfo(): HasOne
+    {
+        return $this->hasOne(AuditInfo::class);
     }
 
     /**

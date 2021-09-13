@@ -10,7 +10,10 @@ class CreateKitProductsTable extends Migration
     {
         Schema::create('kit_products', function (Blueprint $table) {
             $table->id();
-            $table->foreignIdFor(\App\Models\Products::class);
+            $table->string('products_id');
+            $table->foreign('products_id')
+                  ->references('id')
+                  ->on('products');
         });
     }
 

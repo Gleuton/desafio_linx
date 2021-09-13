@@ -12,10 +12,6 @@ class CreateInstallmentsTable extends Migration
             $table->id();
             $table->integer('count');
             $table->decimal('price',10);
-            $table->string('products_id');
-            $table->foreign('products_id')
-                  ->references('id')
-                  ->on('products');
         });
     }
 

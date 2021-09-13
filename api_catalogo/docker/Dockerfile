@@ -1,7 +1,7 @@
 FROM php:7.4-fpm
 
 WORKDIR /var/www
-
+ENV TZ=America/Sao_Paulo
 ## Install dependencies
 RUN apt-get update -y
 RUN apt-get install -y \
