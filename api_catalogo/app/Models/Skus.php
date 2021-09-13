@@ -13,7 +13,7 @@ class Skus extends Model
     public $keyType = 'string';
     protected $guarded = [];
     public $timestamps = [];
-
+    protected $hidden = ['products_id'];
 
     public function Product(): HasOne
     {

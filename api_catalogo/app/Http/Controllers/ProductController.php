@@ -14,7 +14,7 @@ class ProductController extends Controller
         $this->repository = $repository;
     }
 
-    public function compact(int $id): JsonResponse
+    public function compact(string $id): JsonResponse
     {
         $data = $this->repository
             ->compact($id);
@@ -22,7 +22,11 @@ class ProductController extends Controller
         return response()->json($data);
     }
 
-    public function complete()
+    public function complete(string $id): JsonResponse
     {
+        $data = $this->repository
+            ->complete($id);
+
+        return response()->json($data);
     }
 }

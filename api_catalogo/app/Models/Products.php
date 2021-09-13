@@ -13,6 +13,14 @@ class Products extends Model
 
     protected $keyType = 'string';
     protected $guarded = [];
+    protected $casts = [
+        'imagesSsl' => 'array',
+        'specs' => 'array',
+        'customBusiness' => 'array',
+        'price' => 'double',
+        'oldPrice' => 'double',
+        'extraInfo' => 'array',
+    ];
 
     public function Categories(): HasMany
     {
@@ -42,49 +50,5 @@ class Products extends Model
     public function AuditInfo(): HasOne
     {
         return $this->hasOne(AuditInfo::class);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setImagesSslAttribute($value): void
-    {
-        $this->attributes['imagesSsl'] = json_encode(
-            $value,
-            JSON_THROW_ON_ERROR
-        );
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setSpecsAttribute($value): void
-    {
-        $this->attributes['specs'] = json_encode(
-            $value,
-            JSON_THROW_ON_ERROR
-        );
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setExtraInfoAttribute($value): void
-    {
-        $this->attributes['extraInfo'] = json_encode(
-            $value,
-            JSON_THROW_ON_ERROR
-        );
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setCustomBusinessAttribute($value): void
-    {
-        $this->attributes['customBusiness'] = json_encode(
-            $value,
-            JSON_THROW_ON_ERROR
-        );
     }
 }

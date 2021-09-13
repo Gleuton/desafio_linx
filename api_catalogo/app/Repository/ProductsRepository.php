@@ -3,26 +3,40 @@
 namespace App\Repository;
 
 use App\Models\Products;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProductsRepository
 {
-    public function compact(int $id)
+    public function compact(string $id)
     {
-        $result = $this->findId($id);
+        $result = $this->findId($id)->first();
 
         if (!is_null($result)) {
             $result = [
-                'name'   => $result->name,
-                'price'  => $result->price,
-                'status' => $result->status,
-                'categories'=> $result->categories
+                'name'       => $result->name,
+                'price'      => $result->price,
+                'status'     => $result->status,
+                'categories' => $result->categories
             ];
         }
         return $result;
     }
 
-    private function findId(int $id){
-        return Products::query()
-                          ->where('id', $id)->first();
+    public function complete(string $id)
+    {
+        $result = $this->findId($id);
+        if (!is_null($result)) {
+            $result = $result
+                ->with('Categories')
+                ->with('Skus')
+                ->with('Images')
+                ->first();
+        }
+        return $result;
+    }
+
+    private function findId(int $id): Builder
+    {
+        return Products::query()->where('id', $id);
     }
 }

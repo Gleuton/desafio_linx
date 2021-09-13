@@ -7,4 +7,5 @@ $router->get('/', function () use ($router) {
 });
 
 $router->get('/{id}/compact', 'ProductController@compact');
+$router->get('/{id}/complete', 'ProductController@complete');
 

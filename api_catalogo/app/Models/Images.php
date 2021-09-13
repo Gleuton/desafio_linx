@@ -9,6 +9,7 @@ class Images extends Model
 {
     public $guarded = [];
     public $timestamps = [];
+    protected $hidden = ['products_id', 'id'];
 
     public function Product(): HasOne
     {
