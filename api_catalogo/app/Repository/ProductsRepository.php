@@ -30,6 +30,10 @@ class ProductsRepository
                 ->with('Categories')
                 ->with('Skus')
                 ->with('Images')
+                ->with('Tags')
+                ->with('Installments')
+                ->with('AuditInfo')
+                ->with('KitProduct')
                 ->first();
         }
         return $result;

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
@@ -42,13 +43,18 @@ class Products extends Model
         return $this->hasMany(Tags::class);
     }
 
-    public function Installments(): HasOne
+    public function Installments(): BelongsTo
     {
-        return $this->hasOne(Installments::class);
+        return $this->belongsTo(Installments::class);
     }
 
-    public function AuditInfo(): HasOne
+    public function AuditInfo(): BelongsTo
     {
-        return $this->hasOne(AuditInfo::class);
+        return $this->belongsTo(AuditInfo::class);
+    }
+
+    public function KitProduct(): HasMany
+    {
+        return $this->hasMany(KitProducts::class);
     }
 }

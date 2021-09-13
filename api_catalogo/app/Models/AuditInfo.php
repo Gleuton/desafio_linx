@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class AuditInfo extends Model
 {
     protected $guarded = ['id'];
+    protected $hidden = ['id'];
     protected $table = 'audit_info';
     public $timestamps = [];
 
