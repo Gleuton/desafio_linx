@@ -9,6 +9,7 @@ use App\Models\Images;
 use App\Models\Installments;
 use App\Models\Products;
 use App\Models\Skus;
+use App\Models\Tags;
 use App\Prepare\ProductsTrait;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -40,6 +41,7 @@ class ImportProductsFacade
             $this->importImages();
             $this->importCategory();
             $this->importSkus();
+            $this->importTags();
 
             DB::commit();
         } catch (Exception $e) {
@@ -143,5 +145,18 @@ class ImportProductsFacade
             $info->save();
         }
         return $info ?? [];
+    }
+
+    private function importTags(): void
+    {
+        foreach ($this->products['tags'] as $tag) {
+            $tag = new Tags(
+                [
+                    'tag'        => $tag['tag'],
+                    'products_id' => $this->products['id']
+                ]
+            );
+            $tag->save();
+        }
     }
 }
