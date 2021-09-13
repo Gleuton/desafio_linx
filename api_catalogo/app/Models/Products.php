@@ -28,10 +28,12 @@ class Products extends Model
     {
         return $this->hasMany(Images::class);
     }
+
     public function Tags(): HasMany
     {
         return $this->hasMany(Tags::class);
     }
+
     public function Installments(): HasOne
     {
         return $this->hasOne(Installments::class);

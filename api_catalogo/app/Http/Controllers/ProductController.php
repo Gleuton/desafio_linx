@@ -2,13 +2,27 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Products;
+use App\Repository\ProductsRepository;
+use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
 {
-    public function __construct(Products $products)
+    private ProductsRepository $repository;
+
+    public function __construct(ProductsRepository $repository)
     {
-        $this->model = $products;
+        $this->repository = $repository;
     }
 
+    public function compact(int $id): JsonResponse
+    {
+        $data = $this->repository
+            ->compact($id);
+
+        return response()->json($data);
+    }
+
+    public function complete()
+    {
+    }
 }
