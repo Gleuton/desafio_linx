@@ -8,8 +8,7 @@ class ProductsRepository
 {
     public function compact(int $id)
     {
-        $result = Products::query()
-                      ->where('id', $id)->first();
+        $result = $this->findId($id);
 
         if (!is_null($result)) {
             $result = [
@@ -20,5 +19,10 @@ class ProductsRepository
             ];
         }
         return $result;
+    }
+
+    private function findId(int $id){
+        return Products::query()
+                          ->where('id', $id)->first();
     }
 }
