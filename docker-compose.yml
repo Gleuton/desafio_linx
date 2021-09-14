@@ -2,6 +2,7 @@ version: '3.7'
 services:
   api_catalogo-php:
     build: ./api_catalogo/docker
+    image: api_catalogo-php
     volumes:
       - ./api_catalogo:/var/www
       - ./api_catalogo/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
