@@ -38,8 +38,10 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "scripts": {
-    "post-root-package-install": [
-      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\""
+    "desafio-install": [
+      "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+      "php artisan migrate",
+      "chmod 777 -R storage"
     ],
     "import_data": [
       "php artisan import:products",
