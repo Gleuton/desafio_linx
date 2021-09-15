@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Repository\ProductsRepository;
+use App\Repositories\ProductsRepository;
 use Illuminate\Http\JsonResponse;
 
 class ProductController extends Controller
