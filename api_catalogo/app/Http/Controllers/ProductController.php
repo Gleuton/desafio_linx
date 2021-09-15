@@ -18,15 +18,7 @@ class ProductController extends Controller
     {
         $data = $this->repository
             ->compact($id);
-        if ($data) {
-            return response()->json(
-                [
-                    "message" => "Product not found"
-                ],
-                404
-            );
-        }
-        return response()->json($data);
+        return $this->responseJson($data);
     }
 
     public function complete(string $id): JsonResponse
@@ -34,6 +26,11 @@ class ProductController extends Controller
         $data = $this->repository
             ->complete($id);
 
+        return $this->responseJson($data);
+    }
+
+    private function responseJson($data): JsonResponse
+    {
         if ($data) {
             return response()->json(
                 [
