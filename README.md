@@ -1,5 +1,4 @@
-## Api de Catálogo
-Desafio Técnico
+## API de Catálogo
 
 **Instalar e rodar aplicação:**
 <br>
@@ -23,3 +22,4 @@ A aplicação ficara disponível na porta 89, contendo dois endpoints:
     • /{id}/compact
     • /{id}/complete
 ```
+## API de recomendações

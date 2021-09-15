@@ -6,8 +6,6 @@ services:
     volumes:
       - ./api_catalogo:/var/www
       - ./api_catalogo/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
-    ports:
-      - "9000:9000"
 
   api_catalogo-nginx:
     image: nginx:alpine
@@ -31,3 +29,21 @@ services:
       - ../catalogo-data:/var/lib/postgresql/data
     ports:
       - "5435:5432"
+
+  api_recomenda-php:
+    build: ./api_recomenda/docker
+    image: api_recomenda-php
+    volumes:
+      - ./api_recomenda:/var/www
+      - ./api_recomenda/docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+  api_recomenda-nginx:
+    image: nginx:alpine
+    restart: always
+    ports:
+      - "88:80"
+    volumes:
+      - ./api_recomenda:/var/www
+      - ./api_recomenda/docker/nginx:/etc/nginx/conf.d
+    depends_on:
+      - api_recomenda-php
