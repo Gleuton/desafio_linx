@@ -18,7 +18,14 @@ class ProductController extends Controller
     {
         $data = $this->repository
             ->compact($id);
-
+        if ($data) {
+            return response()->json(
+                [
+                    "message" => "Product not found"
+                ],
+                404
+            );
+        }
         return response()->json($data);
     }
 
@@ -27,6 +34,14 @@ class ProductController extends Controller
         $data = $this->repository
             ->complete($id);
 
+        if ($data) {
+            return response()->json(
+                [
+                    "message" => "Product not found"
+                ],
+                404
+            );
+        }
         return response()->json($data);
     }
 }
