@@ -18,6 +18,7 @@ $router->get('/api/docJson', function () {
 /**
  * @OA\Get(
  *     path="/api/vitrine",
+ *     tags={"Vitrine"},
  *     @OA\Response(response="200", description="Sucess")
  * )
  */
@@ -28,6 +29,7 @@ $router->get(
 /**
  * @OA\Get(
  *     path="/api/vitrine/maxProducts/{maxProducts}",
+ *     tags={"Vitrine"},
  *     @OA\Parameter(
  *         name="maxProducts",
  *         in="path",
