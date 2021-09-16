@@ -7,7 +7,8 @@ use GuzzleHttp\Client;
 abstract class AbstractVitrine
 {
     private int $maxProducts = 10;
-    protected Client $client_http;
+    private Client $client_http;
+    protected string $uri;
 
     public function __construct()
     {
@@ -23,14 +24,17 @@ abstract class AbstractVitrine
         }
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getProducts(): array
     {
-        $products = [];
-        $i = 0;
+        $products  = [];
+        $i         = 0;
         $apiResult = $this->getAllApi();
         while ($this->isIncremental($products, $apiResult, $i)) {
-            $productId = $apiResult[$i]->recommendedProduct->id;
-            $products[] = ($productId);
+            $productId  = $apiResult[$i]->recommendedProduct->id;
+            $products[] = $productId;
             $i++;
         }
 
@@ -42,8 +46,21 @@ abstract class AbstractVitrine
         array $apiResult,
         int $i
     ): bool {
-        return count($products) <= $this->maxProducts && count($apiResult)>$i;
+        return count($products) <= $this->maxProducts && count($apiResult) > $i;
     }
 
-    abstract public function getAllApi();
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws \Exception
+     */
+    public function getAllApi(): array
+    {
+        $request = $this->client_http->get($this->uri);
+        return json_decode(
+            $request->getBody()->getContents(),
+            false,
+            512,
+            JSON_THROW_ON_ERROR
+        );
+    }
 }
