@@ -16,3 +16,13 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get(
+    '/vitrine',
+    'VitrineController@vitrine'
+);
+
+$router->get(
+    '/vitrine/maxProducts/{?maxProducts}',
+    'VitrineController@vitrine'
+);
