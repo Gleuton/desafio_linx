@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-class MostPopular extends AbstractVitrine
+class PriceReduction extends AbstractVitrine
 {
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
@@ -10,7 +10,7 @@ class MostPopular extends AbstractVitrine
      */
     public function getAllApi(): array
     {
-        $request = $this->client_http->get('mostpopular.json');
+        $request = $this->client_http->get('pricereduction.json');
         return json_decode(
             $request->getBody()->getContents(),
             false,

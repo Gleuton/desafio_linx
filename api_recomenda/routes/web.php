@@ -23,6 +23,6 @@ $router->get(
 );
 
 $router->get(
-    '/vitrine/maxProducts/{?maxProducts}',
+    '/vitrine/maxProducts/{maxProducts}',
     'VitrineController@vitrine'
 );
