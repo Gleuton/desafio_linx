@@ -13,7 +13,7 @@ abstract class AbstractVitrine
 
     public function __construct(Catalog $catalog)
     {
-        $this->catalog     = $catalog;
+        $this->catalog = $catalog;
         $this->client_http = new Client(
             ['base_uri' => env('API_WISHLIST')]
         );
@@ -31,18 +31,19 @@ abstract class AbstractVitrine
      */
     public function getProducts(): array
     {
-        $products  = [];
-        $i         = 0;
-        $apiResult = $this->getAllApi();
-        while ($this->isIncremental($products, $apiResult, $i)) {
+        $products = [];
+        $index    = 0;
 
-            $productId = $apiResult[$i]->recommendedProduct->id;
+        $apiResult = $this->getAllApi();
+
+        while ($this->isIncremental($products, $apiResult, $index)) {
+            $productId = $apiResult[$index]->recommendedProduct->id;
             $product   = $this->catalog->getProduct($productId);
 
             if (!is_null($product)) {
                 $products[] = $product;
             }
-            $i++;
+            $index++;
         }
 
         return $products;
@@ -69,5 +70,10 @@ abstract class AbstractVitrine
             512,
             JSON_THROW_ON_ERROR
         );
+    }
+
+    public function getMaxProducts(): int
+    {
+        return $this->maxProducts;
     }
 }
