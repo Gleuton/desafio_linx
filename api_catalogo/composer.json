@@ -10,9 +10,10 @@
   "type": "project",
   "require": {
     "php": "^7.4",
+    "ext-json": "*",
     "fruitcake/laravel-cors": "^2.0",
     "laravel/lumen-framework": "^8.0",
-    "ext-json": "*"
+    "zircote/swagger-php": "^3.2"
   },
   "require-dev": {
     "roave/security-advisories": "dev-latest",
