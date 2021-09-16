@@ -19,6 +19,9 @@ class VitrineController extends Controller
         $this->priceReduction = $priceReduction;
     }
 
+    /**
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function vitrine(int $maxProducts = null): JsonResponse
     {
         $this->mostPopular->setMaxProducts($maxProducts);

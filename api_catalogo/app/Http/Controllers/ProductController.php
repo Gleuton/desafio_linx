@@ -31,7 +31,7 @@ class ProductController extends Controller
 
     private function responseJson($data): JsonResponse
     {
-        if ($data) {
+        if (!$data) {
             return response()->json(
                 [
                     "message" => "Product not found"
