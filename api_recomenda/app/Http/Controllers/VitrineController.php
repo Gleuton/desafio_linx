@@ -20,7 +20,6 @@ class VitrineController extends Controller
         $this->mostPopular    = $mostPopular;
         $this->priceReduction = $priceReduction;
     }
-
     public function vitrine(int $maxProducts = null): JsonResponse
     {
         $this->mostPopular->setMaxProducts($maxProducts);
