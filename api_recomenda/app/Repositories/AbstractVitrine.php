@@ -10,9 +10,10 @@ abstract class AbstractVitrine
     private Client $client_http;
     protected string $uri;
     private Catalog $catalog;
+
     public function __construct(Catalog $catalog)
     {
-        $this->catalog = $catalog;
+        $this->catalog     = $catalog;
         $this->client_http = new Client(
             ['base_uri' => env('API_WISHLIST')]
         );
@@ -34,8 +35,13 @@ abstract class AbstractVitrine
         $i         = 0;
         $apiResult = $this->getAllApi();
         while ($this->isIncremental($products, $apiResult, $i)) {
-            $productId  = $apiResult[$i]->recommendedProduct->id;
-            $products[] = $this->catalog->getProduct($productId);
+
+            $productId = $apiResult[$i]->recommendedProduct->id;
+            $product   = $this->catalog->getProduct($productId);
+
+            if (!is_null($product)) {
+                $products[] = $product;
+            }
             $i++;
         }
 

@@ -2,7 +2,9 @@
 
 namespace App\Repositories;
 
+use Exception;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 class Catalog
 {
@@ -17,17 +19,26 @@ class Catalog
 
     /**
      * @throws \GuzzleHttp\Exception\GuzzleException
-     * @throws \Exception
      */
     public function getProduct(int $idProduct)
     {
-        $uri = $idProduct.'/complete';
-        $request = $this->client_http->get($uri);
-        return json_decode(
-            $request->getBody()->getContents(),
-            false,
-            512,
-            JSON_THROW_ON_ERROR
-        );
+        try {
+            $uri = $idProduct . '/complete';
+            $request = $this->client_http->get($uri)->getBody()->getContents();
+            $data = json_decode(
+                $request,
+                false,
+                512,
+                JSON_THROW_ON_ERROR
+            );
+            if (strtolower($data->status) !== 'available'){
+                return null;
+            }
+            return $data;
+        } catch (Exception $exception) {
+            return null;
+        } catch (GuzzleException $e) {
+            throw new $e;
+        }
     }
 }
