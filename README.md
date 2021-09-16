@@ -19,7 +19,7 @@ Dentro do diretório da raiz execute os comandos:
 
 Documentação na rota raiz da API
 
-## API de recomendações
+## API de Recomendações
 **Instalar e rodar aplicação:**
 <br>
 <br>
