@@ -19,6 +19,7 @@
             <p>{{ nameLimit(product.name) }}</p>
             <p class="oldPrice"> {{ formatMoney(product.oldPrice) }}</p>
             <p>Por <span class="price"> {{ formatMoney(product.price) }}</span></p>
+            <p>{{ product.installments.count }}x {{ formatMoney(product.installments.price) }} </p>
           </section>
         </div>
       </slide>
@@ -45,6 +46,7 @@ export default {
   mounted () {
     Products.list().then(response => {
       this.products = response.data[this.ranking]
+      console.log(this.products)
     })
   },
   methods: {
@@ -55,12 +57,12 @@ export default {
       }
       return result
     },
-    formatMoney(value){
+    formatMoney (value) {
       return value.toLocaleString(
           'pt-br',
-          {style: 'currency', currency: 'BRL'}
+          {style: 'currency', currency: 'BRL'},
       )
-    }
+    },
   },
 }
 </script>
@@ -72,10 +74,10 @@ export default {
 
 .productBox {
   margin: 0 10px;
-  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
   width: 300px;
   align-content: center;
-  font-size: 0.75em;
+  font-size: 0.83em;
   color: #262626;
 }
 
@@ -85,10 +87,14 @@ export default {
   margin-right: auto;
   width: 210px;
 }
+.productBox .description{
+  margin-top: 25px;
+}
 .productBox .description .price {
   color: #704577;
   font-size: 1.5em;
 }
+
 .productBox .description .oldPrice {
   font-size: 0.9em;
   color: #747576;
