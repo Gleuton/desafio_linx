@@ -3,7 +3,7 @@
     <carousel
         :navigation-enabled="true"
         :scrollPerPage="true"
-        :perPageCustom="[[480, 2], [768, 3]]"
+        :perPageCustom="[[480, 2], [768, 3], [1056, 4]]"
         :navigation-next-label="'❯'"
         :navigation-prev-label="'❮'"
         :centerMode="true"
@@ -16,7 +16,9 @@
               v-bind:alt="product.name"
           >
           <section class="description">
-            <p class="name">{{ product.name }}</p>
+            <p>{{ nameLimit(product.name) }}</p>
+            <p class="oldPrice"> {{ formatMoney(product.oldPrice) }}</p>
+            <p>Por <span class="price"> {{ formatMoney(product.price) }}</span></p>
           </section>
         </div>
       </slide>
@@ -30,9 +32,9 @@ import Products from '@/services/Products'
 export default {
   name: 'HelloWorld',
   props: {
-    ranking:{
+    ranking: {
       type: String,
-      requested: true
+      requested: true,
     },
   },
   data () {
@@ -45,22 +47,52 @@ export default {
       this.products = response.data[this.ranking]
     })
   },
+  methods: {
+    nameLimit (name) {
+      let result = name.slice(0, name.indexOf('-'))
+      if (result.length > 70) {
+        result = result.slice(0, 70) + '...'
+      }
+      return result
+    },
+    formatMoney(value){
+      return value.toLocaleString(
+          'pt-br',
+          {style: 'currency', currency: 'BRL'}
+      )
+    }
+  },
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 #vitrine {
   padding: 10px 60px;
 }
 
-.productBox > img {
-  height: 210px;
-  background-color: #704577;
+.productBox {
+  margin: 0 10px;
+  font-family: 'Roboto Mono', Monaco, courier, monospace;
+  width: 300px;
+  align-content: center;
+  font-size: 0.75em;
+  color: #262626;
 }
 
-.VueCarousel-slide {
-  position: relative;
+.productBox > img {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 210px;
+}
+.productBox .description .price {
+  color: #704577;
+  font-size: 1.5em;
+}
+.productBox .description .oldPrice {
+  font-size: 0.9em;
+  color: #747576;
+  text-decoration: line-through;
 }
 
 </style>
