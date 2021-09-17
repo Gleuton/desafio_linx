@@ -47,3 +47,8 @@ services:
       - ./api_recomenda/docker/nginx:/etc/nginx/conf.d
     depends_on:
       - api_recomenda-php
+
+  front-app:
+    build: ./front_web
+    ports:
+      - "8999:80"

@@ -35,7 +35,7 @@ class Products extends Model
 
     public function Images(): HasMany
     {
-        return $this->hasMany(Images::class);
+        return $this->hasMany(Images::class)->orderBy('name');
     }
 
     public function Tags(): HasMany
