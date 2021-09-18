@@ -54,7 +54,7 @@ abstract class AbstractVitrine
         array $apiResult,
         int $i
     ): bool {
-        return count($products) <= $this->maxProducts && count($apiResult) > $i;
+        return count($products) < $this->maxProducts && count($apiResult) > $i;
     }
 
     /**
