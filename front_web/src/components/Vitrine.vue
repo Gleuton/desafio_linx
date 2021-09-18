@@ -9,8 +9,8 @@
         :centerMode="true"
         :paginationEnabled="false"
     >
-      <slide v-for="product of products" :key="product.id">
-        <Product :product="product"/>
+      <slide v-for="(product, key) of products" :key="product.id">
+        <Product :product="product" :ranking="ranking" :position="key+1"/>
       </slide>
     </carousel>
   </div>
@@ -38,7 +38,7 @@ export default {
     Products.list().then(response => {
       this.products = response.data[this.ranking]
     })
-  },
+  }
 }
 </script>
 
