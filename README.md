@@ -35,3 +35,11 @@ Dentro do diretório da raiz execute os comandos:
    ```docker-compose exec api_recomenda-php composer desafio-install```
 
 Documentação na rota raiz da API
+
+## Aplicação frontend
+**Instalar e rodar aplicação:**
+<br>
+<br>
+Dentro do diretório da raiz execute os comandos:
+1. Para construir as imagens docker da aplicação:  
+   ```docker-compose up -d```
