@@ -6,8 +6,8 @@
         </span>
         <span class="triangulo"></span>
     </div>
-    <div v-else>
-
+    <div v-else class="reduction">
+      {{ calcDiscount(product.oldPrice, product.price) }}%
     </div>
     <div class="image-box">
       <img
@@ -16,12 +16,12 @@
       >
     </div>
 
-    <section class="description">
+    <div class="description">
       <p>{{ nameLimit(product.name) }}</p>
       <p class="oldPrice"> {{ formatMoney(product.oldPrice) }}</p>
       <p>Por <span class="price"> {{ formatMoney(product.price) }}</span></p>
       <p>{{ product.installments.count }}x {{ formatMoney(product.installments.price) }} </p>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -56,6 +56,10 @@ export default {
           {style: 'currency', currency: 'BRL'},
       )
     },
+    calcDiscount (oldPrice, newPrice){
+      let dif = newPrice - oldPrice
+      return Math.trunc((dif/oldPrice)*100)
+    }
   },
 }
 </script>
@@ -64,7 +68,6 @@ export default {
 .productBox {
   margin-top: 10px;
   font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
-  height: 300px;
   align-content: center;
   font-size: 0.83em;
   color: #262626;
@@ -72,6 +75,7 @@ export default {
 .productBox .image-box{
   padding: 25px;
 }
+
 .productBox .image-box img {
   display: block;
   margin: 0 auto;
@@ -114,5 +118,14 @@ export default {
   border-left: 15px solid transparent;
   border-right: 15px solid transparent;
   border-top: 10px solid #E8ECF0;
+}
+.reduction{
+  background-color: #704577;
+  font-size: 1.2em;
+  padding: 5px;
+  width: 35px;
+  text-align: center;
+  border-radius: 5px;
+  color: #fff;
 }
 </style>
